@@ -59,7 +59,7 @@ Install_Software()
 	mv apache-tomcat-8.5.33 tomcat
 	cd tomcat/bin
 	tar xvfz commons-daemon-native.tar.gz
-	cd commons-daemon-1.1.x-native-src/unix
+	cd commons-daemon-1.1.0-native-src/unix
 	./configure && make
 	cp jsvc ../..
 	cd /usr/local/tomcat
