@@ -11,6 +11,13 @@ eval ${tomcat}url="http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8
 
 Install_Software()
 {
+	#依赖升级
+	sudo apt -f install
+	sudo apt-get update
+	#安装gcc
+	apt-get install gcc-4.8 && Y
+	apt-get install g++-4.8 && Y
+	
 	#安装 JAVA
 	cp -f /media/sdzb/${upan}/jdk-7u79-linux-x64.tar.gz /usr/local
 	tar -zxf jdk-7u79-linux-x64.tar.gz -C /usr/local/
@@ -38,14 +45,14 @@ Install_Software()
 	cp jsvc ../..
 	cd /usr/local/tomcat
 	./bin/jsvc \
-    -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar \
-    -outfile $CATALINA_BASE/logs/catalina.out \
-    -errfile $CATALINA_BASE/logs/catalina.err \
-    -Dcatalina.home=$CATALINA_HOME \
-    -Dcatalina.base=$CATALINA_BASE \
-    -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
-    -Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties \
-    org.apache.catalina.startup.Bootstrap
+    	-classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar \
+    	-outfile $CATALINA_BASE/logs/catalina.out \
+    	-errfile $CATALINA_BASE/logs/catalina.err \
+    	-Dcatalina.home=$CATALINA_HOME \
+    	-Dcatalina.base=$CATALINA_BASE \
+    	-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager \
+    	-Djava.util.logging.config.file=$CATALINA_BASE/conf/logging.properties \
+		org.apache.catalina.startup.Bootstrap
 	
 	echo "Tomcat8.5 安装成功"
 	
