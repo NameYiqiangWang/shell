@@ -53,14 +53,16 @@ Install_Software()
 	java -version
 
 	# 安装 Tomcat8.5
-	eval ${tomcat}ver=`Ver ${tomcat_url}`
-	cd ${tomcat_ver}/bin
+	cd /usr/local
+	wget -O tomcat.tar.gz ${tomcat_url} 
+	tar zxvf tomcat.tar.gz
+	mv apache-tomcat-8.5.33 tomcat
+	cd tomcat/bin
 	tar xvfz commons-daemon-native.tar.gz
 	cd commons-daemon-1.1.x-native-src/unix
 	./configure && make
 	cp jsvc ../..
-	cd ../..
-	cd ${tomcat_ver}/
+	cd /usr/local/tomcat
 	./bin/jsvc \
     -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar \
     -outfile $CATALINA_BASE/logs/catalina.out \
@@ -80,7 +82,7 @@ Install_Software()
 	# 县级服务部署
 	
 	# 启动tomcat
-	
+	sudo bash /usr/local/tomcat/bin/startup.sh
 }
 
 Install_Software
