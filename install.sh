@@ -1,6 +1,10 @@
 #!/bin/sh
 
+#定义U盘名称
+upan="BUNTU"
+
 tomcat="tomcat_"
+
 
 eval ${tomcat}url="http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.33/bin/apache-tomcat-8.5.33.tar.gz"
 
@@ -34,10 +38,10 @@ function Ver()
 Install_Software()
 {
 	#安装 JAVA
+	cp -f /media/sdzb/${upan}/jdk-7u79-linux-x64.tar.gz /usr/local
+	tar -zxvf jdk-7u79-linux-x64.tar.gz -C /usr/local/
 	cd /usr/local
-	mkdir java
-	cp /media/sdzb/ubutu/jdk-7u79-linux-x64.tar.gz /usr/local
-	tar -zxvf jdk-7u79-linux-x64.tar.gz /usr/local/java
+	mv jdk1.7.0_79 java 
 	
 	echo 'JAVA_HOME=/usr/local/java' >> /etc/profile
 	echo 'JRE_HOME=$JAVA_HOME/jre' >> /etc/profile
@@ -50,12 +54,13 @@ Install_Software()
 
 	# 安装 Tomcat8.5
 	eval ${tomcat}ver=`Ver ${tomcat_url}`
-	cd /usr/local/${tomcat_ver}/bin
+	cd ${tomcat_ver}/bin
 	tar xvfz commons-daemon-native.tar.gz
 	cd commons-daemon-1.1.x-native-src/unix
 	./configure && make
 	cp jsvc ../..
-	cd /usr/local/${tomcat_ver}/
+	cd ../..
+	cd ${tomcat_ver}/
 	./bin/jsvc \
     -classpath $CATALINA_HOME/bin/bootstrap.jar:$CATALINA_HOME/bin/tomcat-juli.jar \
     -outfile $CATALINA_BASE/logs/catalina.out \
