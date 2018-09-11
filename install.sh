@@ -9,37 +9,11 @@ tomcat="tomcat_"
 eval ${tomcat}url="http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.33/bin/apache-tomcat-8.5.33.tar.gz"
 
 
-# 下载文件
-function Ver()
-{
-  wget ${1}
-  _name=${1##*/}
-  if [[ ${_name} == *.tar.gz ]]
-  then
-    tar zxf ${_name} -C /usr/local
-    echo ${_name%.tar.gz}
-  elif [[ ${_name} == *.tgz ]]
-  then
-    mv ${_name} ${_name%.tgz}.tar.gz
-    tar zxf ${_name} -C /usr/local
-    echo ${_name%.tar.gz}
-  elif [[ ${_name} == *.tar.bz2 ]]
-  then
-    tar jxf ${_name} -C /usr/local
-    echo ${_name%.tar.bz2}
-  else
-    echo "wrong"
-    exit
-  fi
-}
-
-
-
 Install_Software()
 {
 	#安装 JAVA
 	cp -f /media/sdzb/${upan}/jdk-7u79-linux-x64.tar.gz /usr/local
-	tar -zxvf jdk-7u79-linux-x64.tar.gz -C /usr/local/
+	tar -zxf jdk-7u79-linux-x64.tar.gz -C /usr/local/
 	cd /usr/local
 	mv jdk1.7.0_79 java 
 	
@@ -55,10 +29,10 @@ Install_Software()
 	# 安装 Tomcat8.5
 	cd /usr/local
 	wget -O tomcat.tar.gz ${tomcat_url} 
-	tar zxvf tomcat.tar.gz
+	tar zxf tomcat.tar.gz
 	mv apache-tomcat-8.5.33 tomcat
 	cd tomcat/bin
-	tar xvfz commons-daemon-native.tar.gz
+	tar xfz commons-daemon-native.tar.gz
 	cd commons-daemon-1.1.0-native-src/unix
 	./configure && make
 	cp jsvc ../..
