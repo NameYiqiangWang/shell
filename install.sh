@@ -24,12 +24,17 @@ Install_Software()
 	cd /usr/local
 	mv jdk1.7.0_79 java 
 	
-	echo 'JAVA_HOME=/usr/local/java' >> /etc/profile
-	echo 'JRE_HOME=$JAVA_HOME/jre' >> /etc/profile
-	echo 'CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH' >> /etc/profile
-	echo 'PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH' >> /etc/profile
+	if ! grep "JAVA_HOME=/usr/local/java" /etc/profile
+	then
+		echo 'JAVA_HOME=/usr/local/java' >> /etc/profile
+		echo 'JRE_HOME=$JAVA_HOME/jre' >> /etc/profile
+		echo 'CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH' >> /etc/profile
+		echo 'PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH' >> /etc/profile
+	fi	
 	
 	source /etc/profile
+	
+	export JAVA_HOME="/usr/local/java"
 	
 	java -version
 
